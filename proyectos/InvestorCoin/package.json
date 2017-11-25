@@ -1,0 +1,32 @@
+{
+  "name": "API_Scrapy",
+  "version": "1.0.0",
+  "description": "RESTful Scrapy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuisHuh/api-scrapy.git"
+  },
+  "keywords": [
+    "RESTful",
+    "API",
+    "Scrapy"
+  ],
+  "author": "Luis Enrique",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LuisHuh/api-scrapy/issues"
+  },
+  "homepage": "https://github.com/LuisHuh/api-scrapy#readme",
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "mongoose": "^4.13.5"
+  }
+}
