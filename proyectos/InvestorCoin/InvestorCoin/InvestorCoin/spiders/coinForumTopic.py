@@ -1,18 +1,12 @@
 import scrapy
-
+from InvestorCoin.spiders.customHelper.BitCoinForumModel import BitCoinForumModel
 
 class NewsSpider(scrapy.Spider):
-    name = "forumLinks"
+    name = "forumLinksMainSubject"
     start_urls = [
         #'https://bitcoinforum.com/'
         'https://bitcoinforum.com/bitcoin-discussion/',
     ]
-
-    # def parse(self, response):
-    #     for post in response.css('div.postarea'):
-    #         yield {
-    #             'post': post.css('div.post div.inner::text').extract(),
-    #         }
 
     #Get titles from bitcoin main page subtemes
     # def parse(self, response):
@@ -27,10 +21,26 @@ class NewsSpider(scrapy.Spider):
 
     #Get titles from bitcoin/discussion forum
     def parse(self, response):
-        for forumLink in response.xpath("//tr/td[contains(@class, 'subject') and contains(@class, 'windowbg2')]"):
+        #For global topic
+        for forumLink in response.xpath("//tr/td[contains(@class, 'subject') and contains(@class, 'global2')]"):
+            valTopic = forumLink.css('div span a::text').extract_first(),
+            valLink = forumLink.css('div span a::attr(href)').extract_first(),
+
             yield {
-                'text': forumLink.css('div span a::text').extract_first(),
-                'link' : forumLink.css('div span a::attr(href)').extract_first(),
+                'globalTopic': valTopic,
+                'globalLink' : valLink,
+                #'text': forumLink.xpath('/span[@class="text"]/text()').extract_first(),
+                # 'author': forumLink.xpath("//small[@class='autor']/text()").extract_first(),
+                # 'tags': forumLink.xpath("//div[@class='tags']/text()").extract(),
+            }
+        #For non unglobal topic
+        for forumLink in response.xpath("//tr/td[contains(@class, 'subject') and contains(@class, 'windowbg2')]"):
+            valTopic = forumLink.css('div span a::text').extract_first(),
+            valLink = forumLink.css('div span a::attr(href)').extract_first(),
+
+            yield {
+                'topic': valTopic,
+                'link' : valLink,
                 #'text': forumLink.xpath('/span[@class="text"]/text()').extract_first(),
                 # 'author': forumLink.xpath("//small[@class='autor']/text()").extract_first(),
                 # 'tags': forumLink.xpath("//div[@class='tags']/text()").extract(),
